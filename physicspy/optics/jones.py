@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 from __future__ import division
 from numpy import sqrt, cos, sin, arctan, exp, abs, pi
 from scipy import array, dot, sum
