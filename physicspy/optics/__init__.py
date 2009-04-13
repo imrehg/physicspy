@@ -1,1 +1,7 @@
-__all__ = ['jones']
+#
+#  Optics functions
+#
+from jones import *
+from gauss import *
+
+__all__ = filter(lambda s:not s.startswith('_'),dir())
