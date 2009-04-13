@@ -17,12 +17,15 @@ def setup_package():
 
     try:
         setup(name='physicspy',
-            version='0.0.1',
+            author = 'Gergely Imreh',
+            author_email = 'imrehg@gmail.com',
+            version = '0.1.0',
             description = DOCLINES[0],
             long_description = "\n".join(DOCLINES[2:]),
-            license='MIT',
+            url = 'http://github.com/imrehg/physicspy/',
+            license = 'MIT',
             platforms = ["Windows", "Linux", "Solaris", "Mac OS-X", "Unix"],
-            packages=['physicspy','physicspy.optics'])
+            packages = ['physicspy','physicspy.optics'])
     finally:
         pass
 
