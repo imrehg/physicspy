@@ -18,18 +18,18 @@ class GaussianBeam:
 
     def confocal(self):
         """ Confocal parameter """
-	return 2*pi*self.w0**2/self.lamb
+        return 2*pi*self.w0**2/self.lamb
 	    
     def rcurve(self,z):
         """ Radius of curvature """
-	zz = z - self.z0
-	if allclose(z,0):
-	    return inf
-	return zz*(1 + (self.rrange()/zz)**2)
+        zz = z - self.z0
+        if allclose(z,0):
+            return inf
+        return zz*(1 + (self.rrange()/zz)**2)
 
     def divergence(self):
         """ Divergence """
         return self.lamb/(pi*self.w0)
-	    
+
     def beamparam(self,z):
-	    return z + 1j*self.rrange()
+        return z + 1j*self.rrange()
