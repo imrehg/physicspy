@@ -3,6 +3,29 @@ from __future__ import division
 from numpy import sqrt, cos, sin, arctan, exp, abs, pi
 from scipy import array, dot, sum
 
+class JonesVector:
+    """ A Jones vector class to represent polarized EM waves """
+    def __init__(self,Jx=1,Jy=0):
+        self.Jx = Jx
+        self.Jy = Jy
+
+    def size(self):
+        """ Jones vector size """
+        return sqrt(abs(self.Jx)**2+abs(self.Jy)**2)
+
+    def normalize(self):
+        """ Normalized Jones vector """
+        try:
+            result = JonesVector()
+            result.Jx = self.Jx/self.size()
+            result.Jy = self.Jy/self.size()
+        finally:
+            return result
+
+    def toArray(self):
+        """ Convert into array format """
+        return array([self.Jx, self.Jy])
+
 def lplate(phi,g):
     """ Waveplate matrix """
     W = dot(rotatem(-phi),dot(waveplate(g),rotatem(phi)))
