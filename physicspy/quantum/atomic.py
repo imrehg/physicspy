@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import division
 from numpy import abs, sqrt, min, max
 from scipy import factorial, zeros, prod
 
@@ -7,27 +8,23 @@ def threej(j1,j2,j3,m1,m2,m3):
     """ Calculate the three-j symbol of three angular momenta """
 
     def bad_values(j1,j2,j3,m1,m2,m3):
-        """ check validity of supplied valies """
-                    
+        """ Check validity of supplied values """
         if (j1<abs(j2-j3) or j1>(j2+j3)):
             """ Braking the triangular rule """
             return 1
-           
         if (abs(m1)>j1 or abs(m2)>j2 or abs(m3)>j3):
             """ Braking the |m| <= j rule """
             return 1
-            
         if m1+m2+m3 !=0:
             """ Braking the sum rule """
             return 1
-            
         return 0
 
     if bad_values(j1,j2,j3,m1,m2,m3):
         return 0
         
     jphase = (-1)**(j1-j2-m3)
-    fac = zeros(10)
+    fac = zeros(10,int)
     fac[0] = factorial(j1+j2-j3)
     fac[1] = factorial(j1-j2+j3)
     fac[2] = factorial(-j1+j2+j3)
@@ -45,7 +42,7 @@ def threej(j1,j2,j3,m1,m2,m3):
 
     jsum=0
     for k in range(kmin,kmax+1):
-        jsfac = zeros(6)
+        jsfac = zeros(6,int)
         jsfac[0] = factorial(k)
         jsfac[1] = factorial(j1+j2-j3-k)
         jsfac[2] = factorial(j1-m1-k)
