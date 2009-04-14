@@ -110,3 +110,12 @@ def sixj(j1,j2,j3,l1,l2,l3):
         jsum += (-1)**k * jsfac[0] / prod(jsfac[1:])
 
     return jphase*proddelt*jsum
+
+
+def landeg(gL,gS,J,S,L):
+    """ Calculating the Lande factor g,
+        For fine structure:      landeg(gL,gS,J,S,L)
+        For hyperfine structure: landeg(gJ,gI,F,I,J)
+    """
+    return gL * (J * (J + 1) - S * (S + 1) + L * (L + 1)) / (2 * J * (J + 1)) + \
+        gS * (J * (J + 1) + S * (S + 1) - L * (L + 1)) / (2 * J * (J + 1))
