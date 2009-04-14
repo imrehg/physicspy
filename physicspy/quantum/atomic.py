@@ -52,3 +52,61 @@ def threej(j1,j2,j3,m1,m2,m3):
         jsum += (-1)**k / prod(jsfac[:])
    
     return jphase*jprodfac*jsum
+
+def sixj(j1,j2,j3,l1,l2,l3):
+    """ Calculate the six-j symbol of six angular momenta """
+
+    def bad_values(j1,j2,j3,l1,l2,l3):
+        """ Check triangular rules for supplied values """
+        if (j1<(abs(j2-j3)) or j1>(j2+j3)):
+            return 1
+        if (j1<(abs(l2-l3)) or j1>(l2+l3)): 
+            return 1
+        if (l1<(abs(j2-l3)) or l1>(j2+l3)):
+            return 1
+        if (l1<(abs(l2-j3)) or l1>(l2+j3)):
+            return 1
+        return 0
+
+    def delta(a,b,c):
+        """ Calculate delta """
+        fac = zeros(4,int)
+        fac[0] = factorial(a+b-c)
+        fac[1] = factorial(a-b+c)
+        fac[2] = factorial(-a+b+c)
+        fac[3] = factorial(a+b+c+1)
+        return sqrt(prod(fac[0:3])/fac[3]);
+
+
+    if bad_values(j1,j2,j3,l1,l2,l3):
+        return 0
+
+    jphase=(-1)**(j1+j2+l1+l2);
+    proddelt=delta(j1,j2,j3)*delta(l1,l2,j3)*delta(l1,j2,l3)*delta(j1,l2,l3);
+
+    val = zeros(7,int)
+    val[0] = j1+j2+l1+l2+1
+    val[1] = j1+j2-j3
+    val[2] = l1+l2-j3
+    val[3] = j1+l2-l3
+    val[4] = l1+j2-l3
+    val[5] = -j1-l1+j3+l3
+    val[6] = -j2-l2+j3+l3
+
+    kmax = min(val[0:5])
+    kmin = max([0, -val[5], -val[6]])
+
+    jsum = 0
+    for k in range(kmin,kmax+1):
+        jsfac = zeros(8,int)
+        jsfac[0] = factorial(val[0]-k);
+        jsfac[1] = factorial(k);
+        jsfac[2] = factorial(val[1]-k);
+        jsfac[3] = factorial(val[2]-k);
+        jsfac[4] = factorial(val[3]-k);
+        jsfac[5] = factorial(val[4]-k);
+        jsfac[6] = factorial(val[5]+k);
+        jsfac[7] = factorial(val[6]+k);
+        jsum += (-1)**k * jsfac[0] / prod(jsfac[1:])
+
+    return jphase*proddelt*jsum
