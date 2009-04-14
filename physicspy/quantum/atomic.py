@@ -4,9 +4,10 @@ from __future__ import division
 from numpy import abs, sqrt, min, max
 from scipy import factorial, zeros, prod
 
-def threej(j1,j2,j3,m1,m2,m3):
-    """ Calculate the three-j symbol of three angular momenta """
 
+def threej(j1,j2,j3,m1,m2,m3):
+    """ Calculate the three-j symbol of three angular momenta 
+    """
     def bad_values(j1,j2,j3,m1,m2,m3):
         """ Check validity of supplied values """
         if (j1<abs(j2-j3) or j1>(j2+j3)):
@@ -50,12 +51,12 @@ def threej(j1,j2,j3,m1,m2,m3):
         jsfac[4] = factorial(j3-j2+m1+k)
         jsfac[5] = factorial(j3-j1-m2+k)
         jsum += (-1)**k / prod(jsfac[:])
-   
     return jphase*jprodfac*jsum
 
-def sixj(j1,j2,j3,l1,l2,l3):
-    """ Calculate the six-j symbol of six angular momenta """
 
+def sixj(j1,j2,j3,l1,l2,l3):
+    """ Calculate the six-j symbol of six angular momenta
+    """
     def bad_values(j1,j2,j3,l1,l2,l3):
         """ Check triangular rules for supplied values """
         if (j1<(abs(j2-j3)) or j1>(j2+j3)):
@@ -76,7 +77,6 @@ def sixj(j1,j2,j3,l1,l2,l3):
         fac[2] = factorial(-a+b+c)
         fac[3] = factorial(a+b+c+1)
         return sqrt(prod(fac[0:3])/fac[3]);
-
 
     if bad_values(j1,j2,j3,l1,l2,l3):
         return 0
@@ -108,7 +108,6 @@ def sixj(j1,j2,j3,l1,l2,l3):
         jsfac[6] = factorial(val[5]+k);
         jsfac[7] = factorial(val[6]+k);
         jsum += (-1)**k * jsfac[0] / prod(jsfac[1:])
-
     return jphase*proddelt*jsum
 
 
