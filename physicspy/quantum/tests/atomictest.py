@@ -32,7 +32,7 @@ class TestSequenceFunctions(unittest.TestCase):
         M = ([0,0,-1])
         self.failUnless(threej(J[0],J[1],J[2],M[0],M[1],M[2]) == 0.0, 'three-j symbol m-sum check fail')
 
-    def testThreeJTriangle2(self):
+    def testThreeJValue(self):
         """ Three-J symbol value test by calculating Clebsch-Gordan coefficient """
         J = ([1,1,2])
         M = ([0,1,-1])
