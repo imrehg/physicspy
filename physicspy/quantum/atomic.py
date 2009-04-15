@@ -25,7 +25,7 @@ def threej(j1,j2,j3,m1,m2,m3):
         return 0
         
     jphase = (-1)**(j1-j2-m3)
-    fac = zeros(10,int)
+    fac = zeros(10,long)
     fac[0] = factorial(j1+j2-j3)
     fac[1] = factorial(j1-j2+j3)
     fac[2] = factorial(-j1+j2+j3)
@@ -43,7 +43,7 @@ def threej(j1,j2,j3,m1,m2,m3):
 
     jsum=0
     for k in range(kmin,kmax+1):
-        jsfac = zeros(6,int)
+        jsfac = zeros(6,long)
         jsfac[0] = factorial(k)
         jsfac[1] = factorial(j1+j2-j3-k)
         jsfac[2] = factorial(j1-m1-k)
@@ -71,7 +71,7 @@ def sixj(j1,j2,j3,l1,l2,l3):
 
     def delta(a,b,c):
         """ Calculate delta """
-        fac = zeros(4,int)
+        fac = zeros(4,long)
         fac[0] = factorial(a+b-c)
         fac[1] = factorial(a-b+c)
         fac[2] = factorial(-a+b+c)
@@ -84,7 +84,7 @@ def sixj(j1,j2,j3,l1,l2,l3):
     jphase=(-1)**(j1+j2+l1+l2);
     proddelt=delta(j1,j2,j3)*delta(l1,l2,j3)*delta(l1,j2,l3)*delta(j1,l2,l3);
 
-    val = zeros(7,int)
+    val = zeros(7,long)
     val[0] = j1+j2+l1+l2+1
     val[1] = j1+j2-j3
     val[2] = l1+l2-j3
@@ -98,7 +98,7 @@ def sixj(j1,j2,j3,l1,l2,l3):
 
     jsum = 0
     for k in range(kmin,kmax+1):
-        jsfac = zeros(8,int)
+        jsfac = zeros(8,long)
         jsfac[0] = factorial(val[0]-k);
         jsfac[1] = factorial(k);
         jsfac[2] = factorial(val[1]-k);
