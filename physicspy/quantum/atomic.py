@@ -6,7 +6,7 @@ from scipy import factorial, zeros, prod
 
 
 def threej(j1,j2,j3,m1,m2,m3):
-    """ Calculate the three-j symbol of three angular momenta 
+    """ Calculate the Wigner three-j symbol of three angular momenta 
     """
     def bad_values(j1,j2,j3,m1,m2,m3):
         """ Check validity of supplied values """
@@ -55,7 +55,7 @@ def threej(j1,j2,j3,m1,m2,m3):
 
 
 def sixj(j1,j2,j3,l1,l2,l3):
-    """ Calculate the six-j symbol of six angular momenta
+    """ Calculate the Wigner six-j symbol of six angular momenta
     """
     def bad_values(j1,j2,j3,l1,l2,l3):
         """ Check triangular rules for supplied values """
