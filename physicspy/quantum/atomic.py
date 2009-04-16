@@ -38,8 +38,8 @@ def threej(j1,j2,j3,m1,m2,m3):
     fac[9] = factorial(j1+j2+j3+1)
     jprodfac = sqrt(prod(fac[0:9])/fac[9])
 
-    kmax = min([(j1+j2-j3), (j1-m1) , (j2+m2)])
-    kmin = max([0 , -(j3-j2+m1) , -(j3-j1-m2)])
+    kmax = int(min([(j1+j2-j3), (j1-m1) , (j2+m2)]))
+    kmin = int(max([0 , -(j3-j2+m1) , -(j3-j1-m2)]))
 
     jsum=0
     for k in range(kmin,kmax+1):
