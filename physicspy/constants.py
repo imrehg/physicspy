@@ -23,7 +23,19 @@ def ELECTRONMASS():
 def ELEMENTARYCHARGE():
     """ Elementary charge, C """
     return 1.602176487e-19
-    
+
+def PLANCK():
+    """ Planck constant, J s """
+    return 6.62606896e-34
+
+def HBAR():
+    """ Planck constant divided by 2 pi, J s """
+    return 1.054571628e-34
+
+def RYDBERG():
+    """ Ridberg constant, m^-1 """
+    return 10973731.568527
+
 def SPEEDOFLIGHT():
     """ Speed of light in vacuum, m s^-1 """
     return 299792458
