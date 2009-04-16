@@ -34,9 +34,9 @@ class TestSequenceFunctions(unittest.TestCase):
 
     def testThreeJValue(self):
         """ Three-J symbol value test by calculating Clebsch-Gordan coefficient """
-        J = ([1,1,2])
-        M = ([0,1,-1])
-        self.failUnless(allclose( (2*J[0]+1)*threej(J[0],J[1],J[2],M[0],M[1],M[2])**2 , 0.3), 'wrong three-j symbol value')
+        J = ([1/2,1,3/2])
+        M = ([1/2,1,3/2])
+        self.failUnless(allclose((2*J[2]+1)*threej(J[0],J[1],J[2],M[0],M[1],-M[2])**2 , 1), 'wrong three-j symbol value')
 
     def testSixJTriangle(self):
         """ Triangle rule test of six-j symbols"""
