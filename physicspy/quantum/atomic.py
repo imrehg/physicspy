@@ -118,3 +118,27 @@ def landeg(gL,gS,J,S,L):
     """
     return gL * (J * (J + 1) - S * (S + 1) + L * (L + 1)) / (2 * J * (J + 1)) + \
         gS * (J * (J + 1) + S * (S + 1) - L * (L + 1)) / (2 * J * (J + 1))
+
+
+def energyhfsalkali(F, J, I, Ahfs, Bhfs=0, Chfs=0):
+    """ Hiperfine energy level shift for alkali-type (1 valence electron) atoms
+     F : total angular momentum I+J, |J-I| <= F <= J+I
+     J : total electron angular momentum L+S, |L-S| <= J <= L+S
+     I : nuclear angular momentum
+     Ahfs : Magnetic dipole constant
+     Bhfs : Electric quadrupole constant (default = 0)
+     Chfs : Magnetic octupole constant (default = 0)
+     returns the hyperfine energy shift of the given F level in the same units 
+     as the electromagnetic multipole constants (e.g. energy, MHz, ...)
+    """
+    K = F * (F + 1) - J * (J + 1) - I * (I + 1)
+    dE = 0.5 * Ahfs * K
+    if ((I != 0) and (I != 1/2) and (J != 0) and (J != 1/2)):
+        dE += Bhfs * (1.5 * K * (K + 1) - 2 * I * (I + 1) * J * (J + 1)) / \
+        (4 * I * (2 * I - 1) * J * (2 * J - 1))
+        if ((I != 1) and (J != 1)):
+            dE += Chfs * (5 * K * K * (K / 4 + 1) + \
+            K * (I * (I + 1) + J * (J + 1) + 3 - 3 * I * (I + 1) * J * (J + 1)) - \
+            5 * I * (I + 1) * J * (J + 1)) / \
+            (I * (I - 1) * (2 * I - 1) * J * (J - 1) * (2 * J - 1))
+    return dE
