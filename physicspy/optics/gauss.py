@@ -16,12 +16,12 @@ class GaussianBeam:
 
     def rrange(self):
         """ Rayleigh range """
-	return pi*self.w0**2/self.lamb
+        return pi*self.w0**2/self.lamb
 
     def confocal(self):
         """ Confocal parameter """
         return 2*pi*self.w0**2/self.lamb
-	    
+
     def rcurve(self,z):
         """ Radius of curvature """
         zz = z - self.z0
