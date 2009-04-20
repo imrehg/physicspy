@@ -2,7 +2,9 @@
 """ Gaussian optics package
 
 """
-from numpy import pi, inf, allclose
+from __future__ import division
+from numpy import pi, inf, allclose, dot
+from scipy import array, dot
 
 class GaussianBeam:
     """ A Gaussian beam """
@@ -33,3 +35,17 @@ class GaussianBeam:
 
     def beamparam(self,z):
         return z + 1j*self.rrange()
+
+    def freespace(self,d):
+        """ Free space propagation """
+        q = array([[self.beamparam(0)],[1]])
+        p = array([[1,d],[0,1]])
+        res = dot(p,q)
+        return res[0]/res[1]
+
+    def lens(self,f):
+        """ Effect of lens on complex beam parameter """
+        q = array([[self.beamparam(0)],[1]])
+        p = array([[1,0],[-1/f,1]])
+        res = dot(p,q)
+        return res[0]/res[1]
