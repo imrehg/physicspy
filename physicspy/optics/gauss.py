@@ -34,6 +34,7 @@ class GaussianBeam:
         return self.lamb/(pi*self.w0)
 
     def beamparam(self,z):
+        """ Complex beam parameter """
         return z + 1j*self.rrange()
 
     def freespace(self,d):
