@@ -15,10 +15,15 @@ class JonesVector:
 
     def normalize(self):
         """ Normalized Jones vector """
+        result = self
         try:
-            result = JonesVector()
-            result.Jx = self.Jx/self.size()
-            result.Jy = self.Jy/self.size()
+            size = result.size()
+            if size == 0:
+                raise Exception('Zero-sized Jones vector cannot be normalized')
+            result.Jx /= size
+            result.Jy /= size
+        except Exception as inst:
+            print "Error: ",inst
         finally:
             return result
 
