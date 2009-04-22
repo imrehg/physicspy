@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 from __future__ import division
-from numpy import sqrt, cos, sin, arctan, exp, abs, pi
+from numpy import sqrt, cos, sin, arctan, exp, abs, pi, conj
 from scipy import array, dot, sum
 
 class JonesVector:
     """ A Jones vector class to represent polarized EM waves """
-    def __init__(self,Jx=1,Jy=0):
-        self.Jx = Jx
-        self.Jy = Jy
+    def __init__(self,Jarray=array([1,0])):
+        self.Jx = Jarray[0]
+        self.Jy = Jarray[1]
 
     def size(self):
         """ Jones vector size """
@@ -26,35 +26,58 @@ class JonesVector:
         """ Convert into array format """
         return array([self.Jx, self.Jy])
 
-def lplate(phi,g):
-    """ Waveplate matrix """
-    W = dot(rotatem(-phi),dot(waveplate(g),rotatem(phi)))
-    return W
+    def rotate(self,phi):
+        """ Rotated Jones vector
+        
+        Argument:
+        phi - rotation angle in radians (clockwise is positive)
+        """
+        R = array([[cos(phi), sin(phi)], \
+                    [-sin(phi), cos(phi)]])
+        return JonesVector(dot(R, self.toArray()))
 
-def waveplate(G):
-    """ Waveplate with arbitrary retardance """
-    W0 = array([[exp(1j*G/2), 0], \
-                [0, exp(-1j*G/2)]])
-    return W0
+    def waveplate(self,G):
+        """ Waveplate with arbitrary retardance 
+        Slow axis (or "c axis") is along X 
+        
+        Argument:
+        G - retartandance in phase units
+            (e.g. one wavelength retardance is G = 2 * pi)
+        """
+        W0 = array([[exp(-1j*G/2), 0], \
+                [0, exp(1j*G/2)]])
+        return JonesVector(dot(W0, self.toArray()))
 
-def rotatem(phi):
-    """ Rotation matrix """
-    R = array([[cos(phi), sin(phi)], \
-               [-sin(phi), cos(phi)]])
-    return R
+    def waveplateRot(self,phi,G):
+        """ Waveplate matrix with arbitrary rotation 
+        
+        Arguments:
+        phi - rotation angle in radians 
+              (clockwise is positive)
+        G - retardance in phase units
+            (e.g. one wavelength retardance is G = 2 * pi)
+        """
+        return self.rotate(phi).waveplate(G).rotate(-phi)
 
-def pol(phi):
-    """ Polarizer matrix """
-    P = array([[cos(phi)**2, cos(phi)*sin(phi)], \
+    def pol(self,phi):
+        """ Polarizer matrix """
+        P = array([[cos(phi)**2, cos(phi)*sin(phi)], \
                [sin(phi)*cos(phi), sin(phi)**2]])
-    return P
+        return JonesVector(dot(P, self.toArray()))
 
-def metalmirror(n,k,th):
-    """ Metal mirror matrix """
-    dr = mphase(n,k,th);
-    W0 = array([[dr[3]*exp(-1j*dr[1]), 0],\
+    def mirrormetal(self,n,k,th):
+        """ Reflection off a metal mirror 
+        Incoming and reflected beams are assumed to be in the X plane
+        """
+        dr = mphase(n,k,th);
+        W0 = array([[dr[3]*exp(-1j*dr[1]), 0],\
                 [0, dr[2]*exp(-1j*dr[0])]])
-    return W0
+        return JonesVector(dot(W0, self.toArray()))
+
+    def intensity(self):
+        """ Intensity from electric field vector """
+        return real(self.Jx)**2 + real(self.Jy)**2
+
 
 def mphase(n,k,th):
     """ Calculate phase shift and reflectance of a metal in the s and p directions"""
@@ -68,10 +91,6 @@ def mphase(n,k,th):
     rp = abs(((n**2 + k**2)*cos(th) - (u+v*1j))/((n**2 + k**2)*cos(th) + (u+v*1j)));
     return array([ds, dp, rs, rp])
 
-def intensity(v):
-    """ Intensity from electric field vector """
-    intens = sum(abs(v)**2)
-    return intens
 
 def scanrefangle(n,k,g):
     """ Plot reflectance as a function of incidence angle """
