@@ -11,7 +11,7 @@ class JonesVector:
 
     def size(self):
         """ Jones vector size """
-        return dot(self.toArray().conj(),self.toArray()).real
+        return sqrt(dot(self.toArray().conj(),self.toArray()).real)
 
     def normalize(self):
         """ Normalized Jones vector """
