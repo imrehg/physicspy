@@ -95,25 +95,3 @@ def mphase(n,k,th):
     rs = abs((cos(th) - (u+v*1j))/(cos(th) + (u+v*1j)))
     rp = abs(((n**2 + k**2)*cos(th) - (u+v*1j))/((n**2 + k**2)*cos(th) + (u+v*1j)));
     return array([ds, dp, rs, rp])
-
-
-def scanrefangle(n,k,g):
-    """ Plot reflectance as a function of incidence angle """
-    thl = linspace(0,pi/2,1000);
-    refs = []
-    reff = []
-    tin = array([[1],[1]])/sqrt(2)
-    for y in range(0,thl.shape[0]):
-        refs.append(intensity(dot(pol(pi/4),dot(metalmirror(n,k,thl[y]),dot(lplate(0,g),tin)))))
-        reff.append(intensity(dot(pol(pi/4),dot(metalmirror(n,k,thl[y]),dot(lplate(pi/2,g),tin)))))
-    #~ have to set return values!
-
-def scanplateangle(n,k,g,th,alist):
-    #~ alist = linspace(-pi,pi,200);
-    ref = []
-    tin = array([[1],[1]])/sqrt(2)
-    for a in range(0,alist.shape[0]):
-        ref.append(intensity(dot(pol(pi/4),dot(metalmirror(n,k,th),dot(lplate(alist[a],g),tin)))))
-    return array(ref)
-
-
