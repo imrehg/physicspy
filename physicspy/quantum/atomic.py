@@ -111,6 +111,14 @@ def sixj(j1,j2,j3,l1,l2,l3):
     return jphase*proddelt*jsum
 
 
+def clebschgordan(j1,j2,j3,m1,m2,m3):
+    """ Clebsch-Gordan coefficient
+    Arguments:
+    j1,j2,j3,m1,m2,m3 - vector lengths and projections
+    """
+    return (-1) ** (j1 - j2 +m3) * sqrt(2 * j3 + 1) * threej(j1,j2,j3,m1,m2,-m3)
+
+
 def landeg(gL,gS,J,S,L):
     """ Calculating the Lande factor g,
         For fine structure:      landeg(gL,gS,J,S,L)
