@@ -25,7 +25,7 @@ def setup_package():
             url = 'http://github.com/imrehg/physicspy/',
             license = 'MIT',
             platforms = ["Windows", "Linux", "Solaris", "Mac OS-X", "Unix"],
-            packages = ['physicspy','physicspy.optics'])
+            packages = ['physicspy','physicspy.optics','physicspy.quantum'])
     finally:
         pass
 
